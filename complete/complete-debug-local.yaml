@@ -1,0 +1,27 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: complete-debug
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: complete-debug
+    spec:
+      containers:
+      - name: complete-debug
+        image: complete:latest
+        imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: complete-debug
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: complete-debug
